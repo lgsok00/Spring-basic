@@ -1,13 +1,16 @@
 package hello.hellospring.repository;
 
 import hello.hellospring.domain.Member;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// 테스트는 순서에 상관없이 실행되어야 한다. (의존 X)
 class MemoryMemberRepositoryTest {
   MemoryMemberRepository repository = new MemoryMemberRepository();
 
@@ -26,8 +29,8 @@ class MemoryMemberRepositoryTest {
     repository.save(member);
 
     // then
-    Member result = repository.findById(member.getId()).get();
-    assertThat(result).isEqualTo(member);
+    Member result = repository.findById(member.getId()).get(); // Optional 에서 값을 꺼낼 때 -> get()
+    assertThat(member).isEqualTo(result);
   }
 
   @Test
